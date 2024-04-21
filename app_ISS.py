@@ -15,7 +15,7 @@ def login():
         st.markdown('Escala Fiscalização ISS')
         nome_usuario = st.selectbox(
             'Selecione o seu usuário',
-            usuarios.keys()
+            sorted(usuarios.keys())
             )
         senha = st.text_input('Digite sua senha', type='password')
         if st.button('Acessar'):
@@ -61,6 +61,27 @@ def pagina_principal():
                 st.session_state['pag_presencial'] = False
                 st.session_state['pag_wpp'] = True
                 st.rerun()
+    else:
+        cols = st.columns(2)
+        with cols[0]:
+            if st.button(
+                'Escala Presencial',
+                use_container_width=True
+                ):
+                st.session_state['pag_gestao_usuarios'] = False
+                st.session_state['pag_presencial'] = True
+                st.session_state['pag_wpp'] = False
+                st.rerun()
+        with cols[1]:
+            if st.button(
+                'Escala Whatsapp',
+                use_container_width=True
+                ):
+                st.session_state['pag_gestao_usuarios'] = False
+                st.session_state['pag_presencial'] = False
+                st.session_state['pag_wpp'] = True
+                st.rerun()
+
         
     if st.session_state['pag_gestao_usuarios']:
         pagina_gestao()
